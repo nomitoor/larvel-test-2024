@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get( '/{path?}', function(){
-    return view( 'root' );
-} )->where('path', '.*');
+Route::get('/{path?}', function () {
+    return view('root');
+})->where('path', '.*');

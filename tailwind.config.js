@@ -11,17 +11,16 @@ module.exports = {
     './vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php',
     './resources/**/*.blade.php',
     './node_modules/tw-elements/dist/js/**/*.js',
-    './resources/**/*.html',
+    './resources/**/*.html'
   ],
   theme: {
     extend: {
       colors: {
-        'regal-blue': '#5b6ef4',
-      },
+        'regal-blue': '#5b6ef4'
+      }
     }
   },
   plugins: [
-    require('@tailwindcss/forms'),
-  ],
+    require('@tailwindcss/forms')
+  ]
 }
-
