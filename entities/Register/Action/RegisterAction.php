@@ -9,9 +9,7 @@ use DomainException;
 use Entities\Register\Data\RegisterData;
 use Exception;
 use Illuminate\Support\Facades\DB;
-use OO\Auth\Actions\AssignToACommandAction;
-use OO\Sponsor\Actions\CreateSponsorAction;
-use OO\Sponsor\Actions\CreateSponsorEnrollmentDetailsAction;
+use OO\Sponsor\Actions\{CreateSponsorAction, CreateSponsorEnrollmentDetailsAction};
 use Symfony\Component\HttpFoundation\Response;
 
 final class RegisterAction

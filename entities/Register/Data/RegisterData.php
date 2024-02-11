@@ -4,11 +4,7 @@ declare(strict_types=1);
 
 namespace Entities\Register\Data;
 
-use Spatie\LaravelData\Attributes\Validation\Email;
-use Spatie\LaravelData\Attributes\Validation\Max;
-use Spatie\LaravelData\Attributes\Validation\Min;
-use Spatie\LaravelData\Attributes\Validation\Password;
-use Spatie\LaravelData\Attributes\Validation\Unique;
+use Spatie\LaravelData\Attributes\Validation\{Email, Max, Min, Password, Unique};
 use Spatie\LaravelData\Data;
 
 class RegisterData extends Data
@@ -24,7 +20,6 @@ class RegisterData extends Data
         public readonly string $username,
         #[Password(min: 8, mixedCase: true, numbers: true, symbols: true)]
         public readonly string $password,
-    )
-    {
+    ) {
     }
 }

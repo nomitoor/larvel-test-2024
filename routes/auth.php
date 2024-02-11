@@ -24,4 +24,3 @@ Route::post('login', AuthController::class)
 Route::post('register', RegisterController::class)
     ->middleware('throttle:5,1')
     ->name('user-register');
-
