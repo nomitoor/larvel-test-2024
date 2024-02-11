@@ -2,4 +2,11 @@
 .env
 .idea
 /node_modules
-/public
+/public/css/app.css
+/public/hot
+/public/js/*
+/public/js/app.js
+/public/js/filament.css
+/public/mix-manifest.json
+/public/storage
+/storage/*.key
