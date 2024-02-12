@@ -1,23 +1,56 @@
 import React from "react";
 import Input from "../../components/input";
 import { Link } from "react-router-dom";
-
-const handleSubmit = () => {
-
-}
+import {useForm, useFormState} from "react-hook-form";
+import axios from 'axios';
 
 const Register = () => {
+    const {
+        register,
+        handleSubmit,
+        formState: { errors, setError },
+    } = useForm<RegistrationFormFields>();
+
+    const onSubmit = handleSubmit((data) => {
+        axios.post('/auth/register', { ...data })
+            .then(response => {
+                console.log(response.data);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                let message = 'An error occurred';
+
+                const e: AxiosError = error;
+                if (e.isAxiosError && e.response?.status && e.response.status < 500) {
+                    const {data} = e.response;
+                    message = data['hydra:title'];
+
+                    if(data.errors.length){
+                        setError(
+                            data?.error.map((violation: any) => ({
+                                type: 'api',
+                                name: violation.propertyPath,
+                                message: violation.message,
+                            }))
+                        );
+                    }
+                }
+            });
+    });
+
     return (
         <div className="flex flex-row min-h-screen justify-center items-center bg-regal-blue">
-            <div className="relative border rounded-lg w-4/3 h-[35rem] text-center bg-white w-[45rem] overflow-hidden">
+            <div className="relative border rounded-lg w-4/3 h-[40rem] text-center bg-white w-[45rem] overflow-hidden">
                 <h1 className="mt-10 text-4xl">Register</h1>
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={onSubmit}>
                     <Input
                         id="first_name"
                         type="text"
                         name="first_name"
                         placeholder="First name"
-                        required={true}
+                        register={register}
+                        rules={{required: 'This field is required'}}
+                        errors={errors}
                     />
 
                     <Input
@@ -25,7 +58,19 @@ const Register = () => {
                         type="text"
                         name="last_name"
                         placeholder="Last name"
-                        required={true}
+                        register={register}
+                        rules={{required: 'This field is required'}}
+                        errors={errors}
+                    />
+
+                    <Input
+                        id="username"
+                        type="text"
+                        name="username"
+                        placeholder="Username"
+                        register={register}
+                        rules={{required: 'This field is required'}}
+                        errors={errors}
                     />
 
                     <Input
@@ -33,14 +78,18 @@ const Register = () => {
                         type="email"
                         name="email"
                         placeholder="Email"
-                        required={true}
+                        register={register}
+                        rules={{required: 'This field is required'}}
+                        errors={errors}
                     />
                     <Input
                         id="user_password"
                         type="password"
                         name="password"
                         placeholder="Password"
-                        required={true}
+                        register={register}
+                        rules={{required: 'This field is required'}}
+                        errors={errors}
                     />
 
                     <Input
@@ -48,7 +97,9 @@ const Register = () => {
                         type="password"
                         name="user_cpassword"
                         placeholder="Confirm Password"
-                        required={true}
+                        register={register}
+                        rules={{required: 'This field is required'}}
+                        errors={errors}
                     />
                     <button
                         type="submit"

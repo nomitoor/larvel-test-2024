@@ -8,7 +8,7 @@ const Login = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<RegistrationFormFields>();
+    } = useForm();
 
     const onSubmit = handleSubmit((data) => {
         console.log('submitting...');
