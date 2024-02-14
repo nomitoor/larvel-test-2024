@@ -6,9 +6,12 @@ namespace Entities\Auth\Action;
 
 use App\Http\Resources\UserResource;
 use App\Models\User;
+use DomainException;
 use Entities\Auth\Data\AuthData;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Symfony\Component\HttpFoundation\Response;
 
 final readonly class AuthAction
 {
@@ -16,18 +19,20 @@ final readonly class AuthAction
     {
         $user = User::where('email', $data->email)->first();
 
-        if (! $user || ! Hash::check($data['password'], $user->password)) {
-            return response()->json([
-                'message' => 'Email or password is incorrect!',
-            ], 401);
+        if (! $user || ! Auth::attempt($data->only('email', 'password')->toArray())) {
+            throw new DomainException(
+                'Invalid Credentials, please check email and password and retry again!',
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
         }
 
-        $token = $user->createToken('auth_token')->plainTextToken;
+        $token = auth()->user()->createToken('auth_token')->plainTextToken;
 
-        $cookie = cookie('token', $token, 60 * 24); // 1 day
+        $cookie = cookie('token', $token, 60 * 24);
 
         return response()->json([
             'user' => new UserResource($user),
+            'token' => $token
         ])->withCookie($cookie);
     }
 }

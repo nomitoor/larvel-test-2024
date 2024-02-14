@@ -24,11 +24,11 @@ class RegisterController extends Controller
                 'status' => Response::HTTP_NOT_FOUND,
                 'message' => $e->getMessage(),
             ], Response::HTTP_NOT_FOUND);
-        } catch (Exception) {
-            return response()->json([
-                'status' => Response::HTTP_INTERNAL_SERVER_ERROR,
-                'message' => 'Internal Server Error',
-            ], Response::HTTP_INTERNAL_SERVER_ERROR);
+        } catch (Exception $exception) {
+            throw new DomainException(
+                $exception->getMessage(),
+                Response::HTTP_INTERNAL_SERVER_ERROR
+            );
         }
 
         return response()->json([

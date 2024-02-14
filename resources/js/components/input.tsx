@@ -1,6 +1,6 @@
 import React from "react"
 import {DeepMap, FieldError, RegisterOptions, UseFormRegister} from "react-hook-form";
-import get from 'lodash/get';
+// import get from 'lodash/get';
 
 interface InputProps {
     id: string
@@ -8,14 +8,13 @@ interface InputProps {
     name: string
     placeholder: string
     className?: string;
-    errorMessage?: string
     rules?: RegisterOptions
     register?: UseFormRegister<InputProps>;
     errors?: Partial<DeepMap<InputProps, FieldError>>;
 }
 
-const Input: React.FC<InputProps> = ({ id, type, name, placeholder, errorMessage, register, rules, errors,className }) => {
-    const errorMessages = get(errors, name);
+const Input: React.FC<InputProps> = ({ id, type, name, placeholder, register, rules, errors,className }) => {
+    const errorMessages = errors[name];
     const hasError = !!(errors && errorMessages);
 
     return (
@@ -31,7 +30,7 @@ const Input: React.FC<InputProps> = ({ id, type, name, placeholder, errorMessage
                 />
                 <label
                     htmlFor={id}
-                    className="absolute top-2 left-[6.5rem] text-gray-middle bg-white duration-300 transform -translate-y-6 transparent peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-6 peer-focus:px-[4px] peer-focus:text-gray-dark peer-focus:transparent"
+                    className="absolute text-[1.1rem] top-[0.4rem] left-[6.5rem] text-gray-middle bg-white duration-300 transform -translate-y-6 transparent peer-placeholder-shown:translate-y-0 peer-focus:-translate-y-6 peer-focus:px-[4px] peer-focus:text-gray-dark peer-focus:transparent"
                 >
                     {placeholder}
                 </label>
