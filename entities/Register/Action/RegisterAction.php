@@ -24,7 +24,7 @@ final class RegisterAction
             DB::rollBack();
             throw new DomainException(
                 $exception->getMessage(),
-                $exception->getCode() ?? Response::HTTP_INTERNAL_SERVER_ERROR
+                Response::HTTP_INTERNAL_SERVER_ERROR
             );
         }
 

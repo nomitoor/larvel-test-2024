@@ -5,15 +5,18 @@ declare(strict_types=1);
 namespace Entities\Auth\Controller;
 
 use App\Http\Controllers\Controller;
+use App\Http\Resources\UserResource;
+use DomainException;
 use Entities\Auth\Action\AuthAction;
 use Entities\Auth\Data\AuthData;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
-    public function __invoke(AuthData $data, AuthAction $action): RedirectResponse
+    public function __invoke(AuthData $data, AuthAction $action): JsonResponse
     {
         abort_if(
             Auth::check(),
@@ -21,10 +24,22 @@ class AuthController extends Controller
             'You are already logged in.'
         );
 
-        $action::auth($data);
+        try {
+            $action::auth($data);
+        } catch (DomainException|ModelNotFoundException $e) {
+            return response()->json([
+                'status' => Response::HTTP_NOT_FOUND,
+                'message' => $e->getMessage(),
+            ], Response::HTTP_NOT_FOUND);
+        }
 
-        return back()->withErrors([
-            'email' => 'The provided credentials do not match our records.',
-        ]);
+        $token = auth()->user()->createToken('auth_token')->plainTextToken;
+
+        $cookie = cookie('token', $token, 60 * 24);
+
+        return response()->json([
+            'user' => new UserResource(auth()->user()),
+            'token' => $token
+        ])->withCookie($cookie);
     }
 }
