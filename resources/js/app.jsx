@@ -15,12 +15,12 @@ const token = localStorage.getItem('token')
 if (token) {
   axios.defaults.headers.common.Authorization = `Bearer ${token}`
 }
+const navigate = useNavigate();
 
 axios.interceptors.response.use(
   response => response,
   error => {
     if (error.response?.status === 401) {
-      const navigate = useNavigate();
 
       localStorage.removeItem('token')
       axios.defaults.headers.common.Authorization = 'Bearer'
