@@ -10,7 +10,7 @@ use Spatie\LaravelData\Data;
 final class AuthData extends Data
 {
     public function __construct(
-        #[Min(12), Max(50)]
+        #[Email, Min(12), Max(50)]
         public readonly string $email,
         #[Min(3), Max(50)]
         public readonly string $password,

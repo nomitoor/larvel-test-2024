@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$USER_HOME$/Downloads/free-react-tailwind-admin-dashboard-main/.idea/free-react-tailwind-admin-dashboard-main.iml" filepath="$USER_HOME$/Downloads/free-react-tailwind-admin-dashboard-main/.idea/free-react-tailwind-admin-dashboard-main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/test-task.iml" filepath="$PROJECT_DIR$/.idea/test-task.iml" />
     </modules>
   </component>

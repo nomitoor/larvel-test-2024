@@ -1,11 +1,15 @@
 import './bootstrap'
 import '../css/app.css'
+import '@/dashoboard/css/style.css'
+import '@/dashoboard/css/satoshi.css'
+
 import 'react-toastify/dist/ReactToastify.css'
 
 import React, { useEffect } from 'react'
 import ReactDOM from 'react-dom/client'
 import AppRoutes from './routes'
 import setupAxiosInterceptors from './auth/axiosInterceptor'
+import { BrowserRouter as Router } from 'react-router-dom';
 
 const App = () => {
   useEffect(() => {
@@ -17,5 +21,7 @@ const App = () => {
 
 const root = ReactDOM.createRoot(document.getElementById('root'))
 root.render(
-  <App />
+    <Router>
+      <App />
+    </Router>
 )
