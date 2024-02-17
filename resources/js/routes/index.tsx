@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Route, Routes, useLocation } from 'react-router-dom';
 
 import Loader from '@/dashoboard/common/Loader';
@@ -15,9 +15,9 @@ import Settings from '@/dashoboard/pages/Settings';
 import Tables from '@/dashoboard/pages/Tables';
 import Alerts from '@/dashoboard/pages/UiElements/Alerts';
 import Buttons from '@/dashoboard/pages/UiElements/Buttons';
-import React from 'react';
-import Login from '@/pages/login';
-import Register from '@/pages/register';
+import { AuthProvider } from "@/auth/useAuth";
+import { ProtectedRoute } from "@/auth/ProtectedRoute";
+import { GuestRoutes } from "@/auth/GuestRoutes";
 
 function AppRoutes() {
     const [loading, setLoading] = useState<boolean>(true);
@@ -34,18 +34,15 @@ function AppRoutes() {
     return loading ? (
         <Loader />
     ) : (
-        <>
+        <AuthProvider>
             <Routes>
-                <Route path='/login' element={<Login />} />
-                <Route path='/register' element={<Register />} />
-
                 <Route
                     index
                     element={
-                        <>
+                        <ProtectedRoute>
                             <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
                             <ECommerce />
-                        </>
+                        </ProtectedRoute>
                     }
                 />
                 <Route
@@ -133,8 +130,10 @@ function AppRoutes() {
                     path="/auth/signin"
                     element={
                         <>
-                            <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-                            <SignIn />
+                            <GuestRoutes>
+                                <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                                <SignIn />
+                            </GuestRoutes>
                         </>
                     }
                 />
@@ -142,13 +141,15 @@ function AppRoutes() {
                     path="/auth/signup"
                     element={
                         <>
-                            <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-                            <SignUp />
+                            <GuestRoutes>
+                                <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                                <SignUp />
+                            </GuestRoutes>
                         </>
                     }
                 />
             </Routes>
-        </>
+        </AuthProvider>
     );
 }
 

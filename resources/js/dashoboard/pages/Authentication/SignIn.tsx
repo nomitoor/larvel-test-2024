@@ -1,9 +1,10 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import {Link, useNavigate} from 'react-router-dom';
 import {useForm} from "react-hook-form";
 import axios from "axios";
 import {toast, ToastContainer} from "react-toastify";
 import Loader from "@/dashoboard/common/Loader";
+import { useAuth } from "@/auth/useAuth";
 
 const SignIn: React.FC = () => {
   const {
@@ -15,9 +16,10 @@ const SignIn: React.FC = () => {
   const navigate = useNavigate();
   const [errorShown, setErrorShown] = useState(false); // State to track if errors are shown
   const [loading, setLoading] = useState<boolean>(false);
+  const { login } = useAuth();
 
   const displayErrors = () => {
-    if (errors && !errorShown) {
+    if (Object.keys(errors).length && !errorShown) {
       toast.error(Object.values(errors)[0].message)
       setErrorShown(true);
     }
@@ -30,6 +32,9 @@ const SignIn: React.FC = () => {
           const { data: responseData } = response;
 
           const { token } = responseData;
+          const { user } = responseData
+
+          login(user);
 
           localStorage.setItem('token', token);
           axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
