@@ -7,7 +7,7 @@ import SignIn from '@/dashoboard/pages/Authentication/SignIn';
 import SignUp from '@/dashoboard/pages/Authentication/SignUp';
 import Calendar from '@/dashoboard/pages/Calendar';
 import Chart from '@/dashoboard/pages/Chart';
-import ECommerce from '@/dashoboard/pages/Dashboard/ECommerce';
+import Messages from '@/dashoboard/pages/Dashboard/Messages';
 import FormElements from '@/dashoboard/pages/Form/FormElements';
 import FormLayout from '@/dashoboard/pages/Form/FormLayout';
 import Profile from '@/dashoboard/pages/Profile';
@@ -40,8 +40,8 @@ function AppRoutes() {
                     index
                     element={
                         <ProtectedRoute>
-                            <PageTitle title="eCommerce Dashboard | TailAdmin - Tailwind CSS Admin Dashboard Template" />
-                            <ECommerce />
+                            <PageTitle title="Dashboard | File manager" />
+                            <Messages />
                         </ProtectedRoute>
                     }
                 />
@@ -49,7 +49,7 @@ function AppRoutes() {
                     path="/calendar"
                     element={
                         <>
-                            <PageTitle title="Calendar | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                            <PageTitle title="Calendar | File manager" />
                             <Calendar />
                         </>
                     }
@@ -58,7 +58,7 @@ function AppRoutes() {
                     path="/profile"
                     element={
                         <>
-                            <PageTitle title="Profile | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                            <PageTitle title="Profile | File manager" />
                             <Profile />
                         </>
                     }
@@ -67,7 +67,7 @@ function AppRoutes() {
                     path="/forms/form-elements"
                     element={
                         <>
-                            <PageTitle title="Form Elements | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                            <PageTitle title="Form Elements | File manager" />
                             <FormElements />
                         </>
                     }
@@ -76,7 +76,7 @@ function AppRoutes() {
                     path="/forms/form-layout"
                     element={
                         <>
-                            <PageTitle title="Form Layout | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                            <PageTitle title="Form Layout | File manager" />
                             <FormLayout />
                         </>
                     }
@@ -85,7 +85,7 @@ function AppRoutes() {
                     path="/tables"
                     element={
                         <>
-                            <PageTitle title="Tables | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                            <PageTitle title="Tables | File manager" />
                             <Tables />
                         </>
                     }
@@ -94,7 +94,7 @@ function AppRoutes() {
                     path="/settings"
                     element={
                         <>
-                            <PageTitle title="Settings | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                            <PageTitle title="Settings | File manager" />
                             <Settings />
                         </>
                     }
@@ -103,7 +103,7 @@ function AppRoutes() {
                     path="/chart"
                     element={
                         <>
-                            <PageTitle title="Basic Chart | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                            <PageTitle title="Basic Chart | File manager" />
                             <Chart />
                         </>
                     }
@@ -112,7 +112,7 @@ function AppRoutes() {
                     path="/ui/alerts"
                     element={
                         <>
-                            <PageTitle title="Alerts | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                            <PageTitle title="Alerts | File manager" />
                             <Alerts />
                         </>
                     }
@@ -121,7 +121,7 @@ function AppRoutes() {
                     path="/ui/buttons"
                     element={
                         <>
-                            <PageTitle title="Buttons | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                            <PageTitle title="Buttons | File manager" />
                             <Buttons />
                         </>
                     }
@@ -131,7 +131,7 @@ function AppRoutes() {
                     element={
                         <>
                             <GuestRoutes>
-                                <PageTitle title="Signin | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                                <PageTitle title="Signin | File manager" />
                                 <SignIn />
                             </GuestRoutes>
                         </>
@@ -142,7 +142,7 @@ function AppRoutes() {
                     element={
                         <>
                             <GuestRoutes>
-                                <PageTitle title="Signup | TailAdmin - Tailwind CSS Admin Dashboard Template" />
+                                <PageTitle title="Signup | File manager" />
                                 <SignUp />
                             </GuestRoutes>
                         </>

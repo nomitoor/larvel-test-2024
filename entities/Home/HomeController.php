@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Entities\Home;
 
 use App\Http\Controllers\Controller;

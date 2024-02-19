@@ -15,6 +15,6 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/{path?}', function () {
+Route::get('/{path?}', static function () {
     return view('root');
 })->where('path', '.*');

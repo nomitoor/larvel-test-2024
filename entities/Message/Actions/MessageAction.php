@@ -1,24 +1,28 @@
 <?php
 
-declare(strict_types=1);
+namespace Entities\Message\Actions;
 
-namespace Entities\Register\Action;
-
+use App\Events\SendMessage;
 use App\Models\User;
 use DomainException;
-use Entities\Register\Data\RegisterData;
+use Entities\Message\Data\MessageData;
+use Entities\Message\Message;
 use Exception;
 use Illuminate\Support\Facades\DB;
 use Symfony\Component\HttpFoundation\Response;
 
-final class RegisterAction
+class MessageAction
 {
-    public static function register(RegisterData $data): void
+    public static function handle(MessageData $messageData, User $user): void
     {
         try {
             DB::beginTransaction();
 
-            User::create($data->toArray());
+            auth()->user()->sentMessages()->create([
+                'message' => $messageData->message,
+                'receiver_id' => $user->id,
+            ]);
+
         } catch (Exception $exception) {
             DB::rollBack();
             throw new DomainException(
