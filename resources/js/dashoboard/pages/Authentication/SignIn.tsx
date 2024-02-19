@@ -36,8 +36,7 @@ const SignIn: React.FC = () => {
 
           login(user);
 
-          localStorage.setItem('token', token);
-          axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+          window.localStorage.setItem('token', token)
 
           toast.success('Login successful', {
             position: "top-right"

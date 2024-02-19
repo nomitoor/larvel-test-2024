@@ -5,7 +5,7 @@ const setupAxiosInterceptors = () => {
   axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
   axios.defaults.baseURL = 'http://task-scheduler.test/'
 
-  const token = localStorage.getItem('token')
+  const token = window.localStorage.getItem('token')
   if (token) {
     axios.defaults.headers.common.Authorization = `Bearer ${token}`
   }
@@ -16,7 +16,7 @@ const setupAxiosInterceptors = () => {
       if (error.response?.status === 401) {
         const navigate = useNavigate()
 
-        localStorage.removeItem('token')
+        window.localStorage.removeItem('token')
         axios.defaults.headers.common.Authorization = 'Bearer'
 
         navigate('/login')

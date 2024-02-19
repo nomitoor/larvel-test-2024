@@ -2,6 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Http\Resources\UserResource;
+use App\Models\User;
+use Entities\Message\Controller\MessageController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -16,6 +19,12 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::middleware('auth:sanctum')->group(function () {
+
+    Route::get('/user', static function (Request $request) {
+        return UserResource::collection(User::all()->except(auth()->user()->id));
+    });
+
+    Route::post('/save-message/{user}', [MessageController::class, 'store']);
+    Route::get('/get-user/{user}', [MessageController::class, 'getMessages']);
 });

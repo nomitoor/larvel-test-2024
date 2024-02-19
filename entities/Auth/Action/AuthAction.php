@@ -9,8 +9,7 @@ use App\Models\User;
 use DomainException;
 use Entities\Auth\Data\AuthData;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\{Auth, Hash};
 use Symfony\Component\HttpFoundation\Response;
 
 final readonly class AuthAction
@@ -32,7 +31,7 @@ final readonly class AuthAction
 
         return response()->json([
             'user' => new UserResource($user),
-            'token' => $token
+            'token' => $token,
         ])->withCookie($cookie);
     }
 }
