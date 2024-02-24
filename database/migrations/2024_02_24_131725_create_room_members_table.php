@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('messages', static function (Blueprint $table) {
+        Schema::create('room_members', function (Blueprint $table) {
             $table->id();
+
             $table->foreignIdFor(User::class, 'user_id');
             $table->foreignIdFor(Room::class, 'room_id');
-            $table->longText('message');
+
             $table->timestamps();
         });
     }
@@ -27,6 +28,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('messsages');
+        Schema::dropIfExists('room_members');
     }
 };
