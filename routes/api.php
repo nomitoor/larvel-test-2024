@@ -25,6 +25,6 @@ Route::middleware('auth:sanctum')->group(function () {
         return UserResource::collection(User::all()->except(auth()->user()->id));
     });
 
-    Route::post('/save-message/{user}', [MessageController::class, 'store']);
-    Route::get('/get-user/{user}', [MessageController::class, 'getMessages']);
+    Route::post('/save-message/{room}', [MessageController::class, 'store']);
+    Route::get('/get-user/{room}', [MessageController::class, 'getMessages']);
 });

@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Entities\Message\Actions;
 
-use App\Events\SendMessage;
-use App\Models\User;
+use App\Events\MessageEvent;
+use App\Models\{Room, User};
 use DomainException;
 use Entities\Message\Data\MessageData;
 use Entities\Message\Message;
@@ -13,16 +15,24 @@ use Symfony\Component\HttpFoundation\Response;
 
 class MessageAction
 {
-    public static function handle(MessageData $messageData, User $user): void
+    public static function handle(MessageData $messageData, Room $room): void
     {
         try {
             DB::beginTransaction();
 
-            auth()->user()->sentMessages()->create([
+            $user = auth()->user();
+            Message::create([
+                'room_id' => 1,
+                'user_id' => $user->id,
                 'message' => $messageData->message,
-                'receiver_id' => $user->id,
             ]);
 
+            // auth()->user()->sentMessages()->create([
+            //     'message' => $messageData->message,
+            //     'receiver_id' => $user->id,
+            // ]);
+
+            broadcast(new MessageEvent($room->id))->toOthers();
         } catch (Exception $exception) {
             DB::rollBack();
             throw new DomainException(

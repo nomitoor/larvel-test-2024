@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use Entities\Message\Message;
 use Illuminate\Support\Facades\Broadcast;
 
 /*
@@ -17,4 +18,14 @@ use Illuminate\Support\Facades\Broadcast;
 
 Broadcast::channel('App.Models.User.{id}', function ($user, $id) {
     return (int) $user->id === (int) $id;
+});
+
+Broadcast::channel('message.{roomId}', function ($user, $roomId) {
+
+    $messages = Message::with('user')->where('room_id', $roomId)->get()->toArray();
+
+    return [
+        'user' => auth()->user(),
+        'messages' => $messages,
+    ];
 });

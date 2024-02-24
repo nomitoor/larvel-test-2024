@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom'
 
 const setupAxiosInterceptors = () => {
   axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
-  axios.defaults.baseURL = 'http://task-scheduler.test/'
+  axios.defaults.baseURL = 'http://127.0.0.1:8000/'
 
   const token = window.localStorage.getItem('token')
   if (token) {
@@ -11,8 +11,8 @@ const setupAxiosInterceptors = () => {
   }
 
   axios.interceptors.response.use(
-    response => response,
-    error => {
+    (response) => response,
+    (error) => {
       if (error.response?.status === 401) {
         const navigate = useNavigate()
 
